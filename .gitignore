@@ -1,0 +1,17 @@
+# Manuscript files are not included in the public research-data repository.
+EAGLE-YOLO An edge-aware lightweight detector for real-time maize seedling detection in robotic intra-row weeding.docx
+*.docx
+
+# Local/editor/system files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.temp
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Git/LFS transfer helpers
+*.part
+*.crdownload

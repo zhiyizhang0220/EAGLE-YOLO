@@ -1,0 +1,19 @@
+name: eagle-yolo
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - pyyaml
+  - matplotlib
+  - opencv
+  - tqdm
+  - pip:
+      - torch
+      - torchvision
+      - ultralytics
+      - openmim

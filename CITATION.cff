@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the associated manuscript once published."
+title: "EAGLE-YOLO: An edge-aware lightweight detector for real-time maize seedling detection in robotic intra-row weeding"
+type: software
+authors:
+  - family-names: Zhang
+    given-names: Zhiyi
+  - family-names: Guan
+    given-names: Zhuohuai
+  - family-names: Liu
+    given-names: Saisai
+  - family-names: Wei
+    given-names: Shenghong
+  - family-names: Luo
+    given-names: Mengdi
+  - family-names: Tang
+    given-names: Jiahe
+  - family-names: Huang
+    given-names: Yuxiang
+  - family-names: Cao
+    given-names: Guangqiao
+    email: caoguangqiao@126.com
+  - family-names: Zheng
+    given-names: Zhiqi
+    email: zhiqizheng@nwsuaf.edu.cn
+repository-code: "https://github.com/zhiyizhang0220/EAGLE-YOLO"
+license: MIT
+keywords:
+  - maize seedling detection
+  - intra-row weeding robot
+  - lightweight object detection
+  - edge deployment
+  - YOLO
+  - field validation
+date-released: 2026-05-13

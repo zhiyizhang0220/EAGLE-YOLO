@@ -1,0 +1,679 @@
+2025/11/16 10:14:22 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: win32
+    Python: 3.9.23 (main, Jun  5 2025, 13:25:08) [MSC v.1929 64 bit (AMD64)]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1668938759
+    GPU 0: NVIDIA GeForce RTX 5080
+    CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.8
+    NVCC: Cuda compilation tools, release 12.8, V12.8.61
+    MSVC: 用于 x64 的 Microsoft (R) C/C++ 优化编译器 19.44.35219 版
+    GCC: n/a
+    PyTorch: 2.7.0+cu128
+    PyTorch compiling details: PyTorch built with:
+  - C++ Version: 201703
+  - MSVC 193833144
+  - Intel(R) oneAPI Math Kernel Library Version 2025.1-Product Build 20250306 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.7.1 (Git Hash 8d263e693366ef8db40acc569cc7d8edf644556d)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX2
+  - CUDA Runtime 12.8
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90;-gencode;arch=compute_100,code=sm_100;-gencode;arch=compute_120,code=sm_120
+  - CuDNN 90.7.1
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, COMMIT_SHA=134179474539648ba7dee1317959529fbd0e7f89, CUDA_VERSION=12.8, CUDNN_VERSION=9.7.1, CXX_COMPILER=C:/actions-runner/_work/pytorch/pytorch/pytorch/.ci/pytorch/windows/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /Zc:__cplusplus /bigobj /FS /utf-8 -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, TORCH_VERSION=2.7.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=OFF, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+    TorchVision: 0.22.0+cu128
+    OpenCV: 4.12.0
+    MMEngine: 0.10.7
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1668938759
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2025/11/16 10:14:23 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=64, enable=False)
+backend_args = None
+base_lr = 0.01
+custom_hooks = [
+    dict(num_last_epochs=15, priority=48, type='YOLOXModeSwitchHook'),
+    dict(priority=48, type='SyncNormHook'),
+    dict(
+        ema_type='ExpMomentumEMA',
+        momentum=0.0001,
+        priority=49,
+        type='EMAHook',
+        update_buffers=True),
+]
+data_root = 'E:/Yolo/plus/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    checkpoint=dict(interval=10, max_keep_ckpts=3, type='CheckpointHook'),
+    logger=dict(interval=1, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(
+        draw=True, test_out_dir='test_save', type='DetVisualizationHook'))
+default_scope = 'mmdet'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+img_scale = (
+    640,
+    640,
+)
+img_scales = [
+    (
+        640,
+        640,
+    ),
+    (
+        320,
+        320,
+    ),
+    (
+        960,
+        960,
+    ),
+]
+interval = 10
+launcher = 'none'
+load_form = None
+load_from = 'work_dirs/yolox_tiny_8xb8-300e_visdrone/epoch_50.pth'
+log_level = 'INFO'
+log_processor = dict(by_epoch=True, type='LogProcessor', window_size=50)
+max_epochs = 300
+metainfo = dict(classes='maize')
+model = dict(
+    backbone=dict(
+        act_cfg=dict(type='Swish'),
+        deepen_factor=0.33,
+        norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+        out_indices=(
+            2,
+            3,
+            4,
+        ),
+        spp_kernal_sizes=(
+            5,
+            9,
+            13,
+        ),
+        type='CSPDarknet',
+        use_depthwise=False,
+        widen_factor=0.375),
+    bbox_head=dict(
+        act_cfg=dict(type='Swish'),
+        feat_channels=96,
+        in_channels=96,
+        loss_bbox=dict(
+            eps=1e-16,
+            loss_weight=5.0,
+            mode='square',
+            reduction='sum',
+            type='IoULoss'),
+        loss_cls=dict(
+            loss_weight=1.0,
+            reduction='sum',
+            type='CrossEntropyLoss',
+            use_sigmoid=True),
+        loss_l1=dict(loss_weight=1.0, reduction='sum', type='L1Loss'),
+        loss_obj=dict(
+            loss_weight=1.0,
+            reduction='sum',
+            type='CrossEntropyLoss',
+            use_sigmoid=True),
+        norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+        num_classes=1,
+        stacked_convs=2,
+        strides=(
+            8,
+            16,
+            32,
+        ),
+        type='YOLOXHead',
+        use_depthwise=False),
+    data_preprocessor=dict(
+        batch_augments=[
+            dict(
+                interval=10,
+                random_size_range=(
+                    320,
+                    640,
+                ),
+                size_divisor=32,
+                type='BatchSyncRandomResize'),
+        ],
+        pad_size_divisor=32,
+        type='DetDataPreprocessor'),
+    neck=dict(
+        act_cfg=dict(type='Swish'),
+        in_channels=[
+            96,
+            192,
+            384,
+        ],
+        norm_cfg=dict(eps=0.001, momentum=0.03, type='BN'),
+        num_csp_blocks=1,
+        out_channels=96,
+        type='YOLOXPAFPN',
+        upsample_cfg=dict(mode='nearest', scale_factor=2),
+        use_depthwise=False),
+    test_cfg=dict(nms=dict(iou_threshold=0.65, type='nms'), score_thr=0.01),
+    train_cfg=dict(assigner=dict(center_radius=2.5, type='SimOTAAssigner')),
+    type='YOLOX')
+num_last_epochs = 15
+optim_wrapper = dict(
+    optimizer=dict(
+        lr=0.01, momentum=0.9, nesterov=True, type='SGD', weight_decay=0.0005),
+    paramwise_cfg=dict(bias_decay_mult=0.0, norm_decay_mult=0.0),
+    type='OptimWrapper')
+param_scheduler = [
+    dict(
+        begin=0,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=5,
+        type='mmdet.QuadraticWarmupLR'),
+    dict(
+        T_max=285,
+        begin=5,
+        by_epoch=True,
+        convert_to_iter_based=True,
+        end=285,
+        eta_min=0.0005,
+        type='CosineAnnealingLR'),
+    dict(begin=285, by_epoch=True, end=300, factor=1, type='ConstantLR'),
+]
+resume = False
+test_cfg = dict(type='TestLoop')
+test_dataloader = dict(
+    batch_size=32,
+    dataset=dict(
+        ann_file='test/annotations/test_fixed.json',
+        backend_args=None,
+        data_prefix=dict(img='test/images/'),
+        data_root='E:/Yolo/plus/',
+        metainfo=dict(classes='maize'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                640,
+                640,
+            ), type='Resize'),
+            dict(
+                pad_to_square=True,
+                pad_val=dict(img=(
+                    114.0,
+                    114.0,
+                    114.0,
+                )),
+                type='Pad'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+test_evaluator = dict(
+    ann_file='E:/Yolo/plus/test/annotations/test_fixed.json',
+    backend_args=None,
+    metric='bbox',
+    type='CocoMetric')
+test_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(keep_ratio=True, scale=(
+        640,
+        640,
+    ), type='Resize'),
+    dict(
+        pad_to_square=True,
+        pad_val=dict(img=(
+            114.0,
+            114.0,
+            114.0,
+        )),
+        type='Pad'),
+    dict(type='LoadAnnotations', with_bbox=True),
+    dict(
+        meta_keys=(
+            'img_id',
+            'img_path',
+            'ori_shape',
+            'img_shape',
+            'scale_factor',
+        ),
+        type='PackDetInputs'),
+]
+train_cfg = dict(max_epochs=50, type='EpochBasedTrainLoop', val_interval=10)
+train_dataloader = dict(
+    batch_size=16,
+    dataset=dict(
+        dataset=dict(
+            ann_file='train/annotations/train_fixed.json',
+            backend_args=None,
+            data_prefix=dict(img='train/images/'),
+            data_root='E:/Yolo/plus/',
+            filter_cfg=dict(filter_empty_gt=False, min_size=32),
+            metainfo=dict(classes='maize'),
+            pipeline=[
+                dict(backend_args=None, type='LoadImageFromFile'),
+                dict(type='LoadAnnotations', with_bbox=True),
+            ],
+            type='CocoDataset'),
+        pipeline=[
+            dict(img_scale=(
+                640,
+                640,
+            ), pad_val=114.0, type='Mosaic'),
+            dict(
+                border=(
+                    -320,
+                    -320,
+                ),
+                scaling_ratio_range=(
+                    0.1,
+                    2,
+                ),
+                type='RandomAffine'),
+            dict(
+                img_scale=(
+                    640,
+                    640,
+                ),
+                pad_val=114.0,
+                ratio_range=(
+                    0.8,
+                    1.6,
+                ),
+                type='MixUp'),
+            dict(type='YOLOXHSVRandomAug'),
+            dict(prob=0.5, type='RandomFlip'),
+            dict(keep_ratio=True, scale=(
+                640,
+                640,
+            ), type='Resize'),
+            dict(
+                pad_to_square=True,
+                pad_val=dict(img=(
+                    114.0,
+                    114.0,
+                    114.0,
+                )),
+                type='Pad'),
+            dict(
+                keep_empty=False,
+                min_gt_bbox_wh=(
+                    1,
+                    1,
+                ),
+                type='FilterAnnotations'),
+            dict(type='PackDetInputs'),
+        ],
+        type='MultiImageMixDataset'),
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_dataset = dict(
+    dataset=dict(
+        ann_file='train/annotations/train_fixed.json',
+        backend_args=None,
+        data_prefix=dict(img='train/images/'),
+        data_root='E:/Yolo/plus/',
+        filter_cfg=dict(filter_empty_gt=False, min_size=32),
+        metainfo=dict(classes='maize'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(type='LoadAnnotations', with_bbox=True),
+        ],
+        type='CocoDataset'),
+    pipeline=[
+        dict(img_scale=(
+            640,
+            640,
+        ), pad_val=114.0, type='Mosaic'),
+        dict(
+            border=(
+                -320,
+                -320,
+            ),
+            scaling_ratio_range=(
+                0.1,
+                2,
+            ),
+            type='RandomAffine'),
+        dict(
+            img_scale=(
+                640,
+                640,
+            ),
+            pad_val=114.0,
+            ratio_range=(
+                0.8,
+                1.6,
+            ),
+            type='MixUp'),
+        dict(type='YOLOXHSVRandomAug'),
+        dict(prob=0.5, type='RandomFlip'),
+        dict(keep_ratio=True, scale=(
+            640,
+            640,
+        ), type='Resize'),
+        dict(
+            pad_to_square=True,
+            pad_val=dict(img=(
+                114.0,
+                114.0,
+                114.0,
+            )),
+            type='Pad'),
+        dict(
+            keep_empty=False,
+            min_gt_bbox_wh=(
+                1,
+                1,
+            ),
+            type='FilterAnnotations'),
+        dict(type='PackDetInputs'),
+    ],
+    type='MultiImageMixDataset')
+train_pipeline = [
+    dict(img_scale=(
+        640,
+        640,
+    ), pad_val=114.0, type='Mosaic'),
+    dict(
+        border=(
+            -320,
+            -320,
+        ),
+        scaling_ratio_range=(
+            0.1,
+            2,
+        ),
+        type='RandomAffine'),
+    dict(
+        img_scale=(
+            640,
+            640,
+        ),
+        pad_val=114.0,
+        ratio_range=(
+            0.8,
+            1.6,
+        ),
+        type='MixUp'),
+    dict(type='YOLOXHSVRandomAug'),
+    dict(prob=0.5, type='RandomFlip'),
+    dict(keep_ratio=True, scale=(
+        640,
+        640,
+    ), type='Resize'),
+    dict(
+        pad_to_square=True,
+        pad_val=dict(img=(
+            114.0,
+            114.0,
+            114.0,
+        )),
+        type='Pad'),
+    dict(keep_empty=False, min_gt_bbox_wh=(
+        1,
+        1,
+    ), type='FilterAnnotations'),
+    dict(type='PackDetInputs'),
+]
+tta_model = dict(
+    tta_cfg=dict(max_per_img=100, nms=dict(iou_threshold=0.65, type='nms')),
+    type='DetTTAModel')
+tta_pipeline = [
+    dict(backend_args=None, type='LoadImageFromFile'),
+    dict(
+        transforms=[
+            [
+                dict(keep_ratio=True, scale=(
+                    640,
+                    640,
+                ), type='Resize'),
+                dict(keep_ratio=True, scale=(
+                    320,
+                    320,
+                ), type='Resize'),
+                dict(keep_ratio=True, scale=(
+                    960,
+                    960,
+                ), type='Resize'),
+            ],
+            [
+                dict(prob=1.0, type='RandomFlip'),
+                dict(prob=0.0, type='RandomFlip'),
+            ],
+            [
+                dict(
+                    pad_to_square=True,
+                    pad_val=dict(img=(
+                        114.0,
+                        114.0,
+                        114.0,
+                    )),
+                    type='Pad'),
+            ],
+            [
+                dict(type='LoadAnnotations', with_bbox=True),
+            ],
+            [
+                dict(
+                    meta_keys=(
+                        'img_id',
+                        'img_path',
+                        'ori_shape',
+                        'img_shape',
+                        'scale_factor',
+                        'flip',
+                        'flip_direction',
+                    ),
+                    type='PackDetInputs'),
+            ],
+        ],
+        type='TestTimeAug'),
+]
+val_cfg = dict(type='ValLoop')
+val_dataloader = dict(
+    batch_size=16,
+    dataset=dict(
+        ann_file='val/annotations/val_fixed.json',
+        backend_args=None,
+        data_prefix=dict(img='val/images/'),
+        data_root='E:/Yolo/plus/',
+        metainfo=dict(classes='maize'),
+        pipeline=[
+            dict(backend_args=None, type='LoadImageFromFile'),
+            dict(keep_ratio=True, scale=(
+                640,
+                640,
+            ), type='Resize'),
+            dict(
+                pad_to_square=True,
+                pad_val=dict(img=(
+                    114.0,
+                    114.0,
+                    114.0,
+                )),
+                type='Pad'),
+            dict(type='LoadAnnotations', with_bbox=True),
+            dict(
+                meta_keys=(
+                    'img_id',
+                    'img_path',
+                    'ori_shape',
+                    'img_shape',
+                    'scale_factor',
+                ),
+                type='PackDetInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=8,
+    persistent_workers=True,
+    sampler=dict(shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file='E:/Yolo/plus/val/annotations/val_fixed.json',
+    backend_args=None,
+    metric='bbox',
+    type='CocoMetric')
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='DetLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = './work_dirs\\yolox_tiny_8xb8-300e_visdrone'
+
+2025/11/16 10:14:24 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2025/11/16 10:14:24 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(49          ) EMAHook                            
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_load_checkpoint:
+(49          ) EMAHook                            
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(48          ) YOLOXModeSwitchHook                
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(48          ) SyncNormHook                       
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_save_checkpoint:
+(49          ) EMAHook                            
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DetVisualizationHook               
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(49          ) EMAHook                            
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2025/11/16 10:14:24 - mmengine - WARNING - maize is not a meta file, simply parsed as meta information
+2025/11/16 10:14:25 - mmengine - INFO - Load checkpoint from work_dirs/yolox_tiny_8xb8-300e_visdrone/epoch_50.pth
+2025/11/16 10:15:07 - mmengine - INFO - Epoch(test) [ 1/17]    eta: 0:09:32  time: 35.7800  data_time: 35.1141  memory: 1388  
+2025/11/16 10:15:14 - mmengine - INFO - Epoch(test) [ 2/17]    eta: 0:05:21  time: 21.4441  data_time: 20.9871  memory: 1388  
+2025/11/16 10:15:21 - mmengine - INFO - Epoch(test) [ 3/17]    eta: 0:03:50  time: 16.4390  data_time: 16.0587  memory: 1388  
+2025/11/16 10:15:28 - mmengine - INFO - Epoch(test) [ 4/17]    eta: 0:03:02  time: 14.0110  data_time: 13.6978  memory: 1388  
+2025/11/16 10:15:34 - mmengine - INFO - Epoch(test) [ 5/17]    eta: 0:02:31  time: 12.6630  data_time: 12.3685  memory: 1388  
+2025/11/16 10:15:41 - mmengine - INFO - Epoch(test) [ 6/17]    eta: 0:02:08  time: 11.6462  data_time: 11.3600  memory: 1388  
+2025/11/16 10:15:48 - mmengine - INFO - Epoch(test) [ 7/17]    eta: 0:01:49  time: 10.9304  data_time: 10.6540  memory: 1388  
+2025/11/16 10:15:54 - mmengine - INFO - Epoch(test) [ 8/17]    eta: 0:01:34  time: 10.4590  data_time: 10.1804  memory: 1388  
+2025/11/16 10:16:01 - mmengine - INFO - Epoch(test) [ 9/17]    eta: 0:01:19  time: 9.9473  data_time: 9.6839  memory: 1388  
+2025/11/16 10:16:07 - mmengine - INFO - Epoch(test) [10/17]    eta: 0:01:07  time: 9.6264  data_time: 9.3643  memory: 1388  
+2025/11/16 10:16:14 - mmengine - INFO - Epoch(test) [11/17]    eta: 0:00:55  time: 9.3295  data_time: 9.0785  memory: 1388  
+2025/11/16 10:16:21 - mmengine - INFO - Epoch(test) [12/17]    eta: 0:00:45  time: 9.1397  data_time: 8.8892  memory: 1388  
+2025/11/16 10:16:27 - mmengine - INFO - Epoch(test) [13/17]    eta: 0:00:35  time: 8.9453  data_time: 8.6963  memory: 1388  
+2025/11/16 10:16:34 - mmengine - INFO - Epoch(test) [14/17]    eta: 0:00:26  time: 8.7782  data_time: 8.5238  memory: 1388  
+2025/11/16 10:16:41 - mmengine - INFO - Epoch(test) [15/17]    eta: 0:00:17  time: 8.6586  data_time: 8.4058  memory: 1388  
+2025/11/16 10:16:59 - mmengine - INFO - Epoch(test) [16/17]    eta: 0:00:08  time: 8.5300  data_time: 8.2761  memory: 1388  
+2025/11/16 10:17:15 - mmengine - INFO - Epoch(test) [17/17]    eta: 0:00:00  time: 9.0880  data_time: 8.8335  memory: 1177  
+2025/11/16 10:17:15 - mmengine - INFO - Evaluating bbox...
+2025/11/16 10:17:15 - mmengine - INFO - bbox_mAP_copypaste: 0.566 0.964 0.627 -1.000 0.225 0.574
+2025/11/16 10:17:15 - mmengine - INFO - Epoch(test) [17/17]    coco/bbox_mAP: 0.5660  coco/bbox_mAP_50: 0.9640  coco/bbox_mAP_75: 0.6270  coco/bbox_mAP_s: -1.0000  coco/bbox_mAP_m: 0.2250  coco/bbox_mAP_l: 0.5740  data_time: 8.8335  time: 9.0880
